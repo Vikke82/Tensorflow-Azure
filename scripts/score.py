@@ -21,7 +21,7 @@ def preprocess_data(data):
 def run(raw_data):
     try:
         # Parse the input data from the request
-        input_data = json.loads(raw_data)['data']  # Expecting 'data' key in the input
+        input_data = json.loads(raw_data)#['data']  # Expecting 'data' key in the input
         
         # Preprocess the input data
         input_data = preprocess_data(input_data)

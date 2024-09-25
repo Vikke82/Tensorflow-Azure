@@ -45,6 +45,11 @@ history = model.fit(x_train, y_train, epochs=5, batch_size=32, validation_data=(
 test_loss, test_acc = model.evaluate(x_test, y_test)
 print("Test accuracy", test_acc)
 
+#predict the model
+predictions = model.predict(x_test)
+predicted_labels = [tf.argmax(prediction).numpy() for prediction in predictions]
+print(predicted_labels[:10])
+
 
 
 # Save the model in TensorFlow's SavedModel format
