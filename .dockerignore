@@ -1,1 +1,3 @@
 scripts/
+deploy_model.py
+deploy_model.ipynb

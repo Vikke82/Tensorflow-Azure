@@ -28,8 +28,10 @@ test_data_json = json.dumps({"data": test_samples})
 #print(test_data_json)
 
 # Define the local Flask app URL (or your Azure deployed scoring URI)
-url = "http://127.0.0.1:5000/predict"  # Local URL, or replace with your Azure URI
+#url = "http://127.0.0.1:5000/predict"  # Local URL, or replace with your Azure URI
 #url = "https://my-mnist-endpoint-ville.northeurope.inference.ml.azure.com/score"
+url = "http://127.0.0.1:31311/score"
+#url = "https://myworkspace-ville.northeurope.inference.ml.azure.com/score"
 
 # Set the headers
 headers = {'Content-Type': 'application/json'}

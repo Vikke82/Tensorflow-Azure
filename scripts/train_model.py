@@ -3,7 +3,7 @@ from tensorflow import keras #tensorflow=2.16.1
 from keras import layers, utils
 import matplotlib.pyplot as plt
 
-
+print("Tensorflow version in training "+tf.__version__)
 # Load the dataset
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 
@@ -51,6 +51,6 @@ predicted_labels = [tf.argmax(prediction).numpy() for prediction in predictions]
 print(predicted_labels[:10])
 
 
-print("Tensorflow version in training "+tf.__version__)
+
 # Save the model in TensorFlow's SavedModel format
 model.save('my_model.keras', save_format='keras')
