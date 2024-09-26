@@ -1,0 +1,18 @@
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+name: mnist-deployment-v1
+endpoint_name: myworkspace-ville
+environment_variables:
+  AZUREML_MODEL_DIR: "/var/azureml-app/azureml-models/my_tensorflow_model/3"
+model:
+  name: my_tensorflow_model
+  version: 3  # Replace with your model version
+code_configuration:
+  code: . # Path to your code directory containing the `score.py`
+  scoring_script: score.py  # The entry script for scoring
+  entry_script: /var/azureml-app/score.py
+
+environment:
+  name: inf-conda-env  # Should match the name in `conda.yml` if defined
+  version: 1
+instance_type: Standard_DS3_v2
+instance_count: 1
