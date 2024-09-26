@@ -1,0 +1,14 @@
+name: inf-conda-env
+channels:
+  - defaults
+dependencies:
+  - python=3.12  # or the version of Python you're using
+  - pip
+  - pip:
+      - tensorflow==2.16.1 #same as for training the model
+      - numpy
+      - azureml-dataprep
+      - azureml-dataprep-native<39.0.0,>=38.0.0
+      - azureml-dataset-runtime
+      - azureml-inference-server-http  # Ensure this package is included
+      - azureml-defaults

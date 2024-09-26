@@ -1,14 +1,17 @@
 import json
 import numpy as np
-from azureml.core.model import Model
-from tensorflow import keras
+import tensorflow as tf
 
+print("TensorFlow Version in score.py: ", tf.__version__)
 # Initialize the model
 def init():
     global model
     # Load the model from Azure ML model registry
-    model_path = Model.get_model_path('my_tensorflow_model')  # Replace 'my_mnist_model' with the actual model name
-    model = keras.models.load_model(model_path)
+    #model_path = Model.get_model_path('my_tensorflow_model', version=3)  # Replace 'my_mnist_model' with the actual model name
+    model_path = "my_model.keras"
+    #model_path = "my_model.h5"
+    model = tf.keras.models.load_model(model_path, compile=False)
+    
 
 # Preprocess incoming data (normalize it)
 def preprocess_data(data):

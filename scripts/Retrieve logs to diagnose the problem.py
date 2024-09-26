@@ -9,9 +9,10 @@ for model in models:
     print(f"Model name: {model.name}, Model ID: {model.id}")
 
 # Get the deployed service
-service = AciWebservice(workspace=ws, name="tensorflow-aci-service")
+service = AciWebservice(workspace=ws, name="mnist-deployment-v1")
 
 # Print the logs
 logs = service.get_logs()
 print(logs)
+
 

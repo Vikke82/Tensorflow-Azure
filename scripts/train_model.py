@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow import keras
+from tensorflow import keras #tensorflow=2.16.1
 from keras import layers, utils
 import matplotlib.pyplot as plt
 
@@ -51,6 +51,6 @@ predicted_labels = [tf.argmax(prediction).numpy() for prediction in predictions]
 print(predicted_labels[:10])
 
 
-
+print("Tensorflow version in training "+tf.__version__)
 # Save the model in TensorFlow's SavedModel format
-model.save("my_model.keras")
+model.save('my_model.keras', save_format='keras')

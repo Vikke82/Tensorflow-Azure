@@ -1,36 +1,40 @@
 from azure.ai.ml import MLClient
 from azure.identity import DefaultAzureCredential
-from azure.ai.ml.entities import ManagedOnlineDeployment
+from azure.ai.ml.entities import ManagedOnlineDeployment, Environment, CodeConfiguration
+import os
 
-# Initialize ML client
+
 ml_client = MLClient(
     credential=DefaultAzureCredential(),
     subscription_id="ddfbea37-0529-4562-ac51-2ebbbe770146",
-    resource_group_name="cloudservicess242",  # Correct resource group
-    workspace_name="myWorkspace"  # Correct workspace
+    resource_group_name="cloudServicesS242",
+    workspace_name="myWorkspace"
 )
 
-# Define the deployment
-deployment_name = "mnist-deployment-v1"
+code_path = os.path.abspath("./")
+# Define your deployment
 deployment = ManagedOnlineDeployment(
-    name=deployment_name,
-    endpoint_name="my-mnist-endpoint-ville",  # The endpoint you already created
-    model="my_tensorflow_model:3",  # Ensure the model is registered in your workspace
-    environment="tensorflow-env:1",  # Ensure the environment is registered
-    instance_type="Standard_DS3_v2",  # Ensure this VM size has available quota
+    name="mnist-deployment-v1",
+    endpoint_name="myworkspace-ville",
+    model="my_tensorflow_model:3",
+    #environment="tensorflow-env:1",
+    code_configuration=CodeConfiguration(
+        code="./", scoring_script="score.py"
+        ),
+    environment=Environment(
+            conda_file="conda.yml",
+            image="mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04",
+            ),
+    
+    instance_type="Standard_DS3_v2",
     instance_count=1
 )
 
-# Deploy the model to the endpoint
-deployment_poller = ml_client.online_deployments.begin_create_or_update(deployment)
-deployment_result = deployment_poller.result()  # Wait for deployment to complete
-print(f"Deployment '{deployment_name}' created successfully.")
+# Deploy locally
+deployment_poller = ml_client.online_deployments.begin_create_or_update(deployment, local=True)
+deployment_result = deployment_poller.result()
 
-# Set the traffic to this deployment
-endpoint = ml_client.online_endpoints.get("my-mnist-endpoint-ville")
-endpoint.traffic = {deployment_name: 100}  # Direct 100% traffic to this deployment
-ml_client.online_endpoints.create_or_update(endpoint)
 
 # Get the scoring URI
-endpoint_details = ml_client.online_endpoints.get("my-mnist-endpoint-ville")
+endpoint_details = ml_client.online_endpoints.get("myworkspace-ville")
 print(f"Scoring URI: {endpoint_details.scoring_uri}")

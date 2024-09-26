@@ -1,7 +1,0 @@
-$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
-name: mnist-deployment-v1 # Name of the deployment
-endpoint_name: my-mnist-endpoint-ville # Name of the endpoint
-model: azureml:my_tensorflow_model:2 # Registered model with version
-environment: azureml:tensorflow-env:1 # Registered environment with version
-instance_type: Standard_DS3_v2 # Instance type for deployment
-instance_count: 1 # Number of instances
