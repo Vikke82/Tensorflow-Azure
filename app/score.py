@@ -3,6 +3,7 @@ import numpy as np
 import tensorflow as tf
 import os
 import logging
+import keras
 
 logging.basicConfig(level=logging.DEBUG)
 os.environ["AZUREML_MODEL_DIR"] = "/var/azureml-app/azureml-models/my_tensorflow_model/3"
@@ -14,14 +15,23 @@ def init():
     logging.debug("Initializing model...")
     global model
     # Load the model from Azure ML model registry
-    #model_path = Model.get_model_path('my_tensorflow_model', version=3)  # Replace 'my_mnist_model' with the actual model name
-    #model_path = "my_model.keras"
-    # model_dir = os.getenv('AZUREML_MODEL_DIR', default='/var/azureml-app/')
-    # model_path = os.path.join(model_dir, "my_model.keras")  # Replace with actual model file name
-    model_path = "/var/azureml-app/azureml-models/my_tensorflow_model/3/my_model.keras"
+    # Directory to search in
+    search_directory = '/var/azureml-app/azureml-models'
+    # Name of the file you're looking for
+    file_name = 'my_model.keras'
 
-    #model_path = "my_model.h5"
-    model = tf.keras.models.load_model(model_path, compile=False)
+    # Walk through the directory and find file "file_name"
+    for dirpath, dirnames, filenames in os.walk(search_directory):
+        if file_name in filenames:
+            full_path = os.path.join(dirpath, file_name)
+            print(f"File found: {full_path}")
+            break
+    else:
+        print(f"File '{file_name}' not found in '{search_directory}'")
+   
+
+   
+    model = keras.models.load_model(full_path, compile=True)
     logging.debug("Model initialized successfully.")
     print("End of init")
 

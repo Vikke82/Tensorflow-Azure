@@ -8,7 +8,7 @@ ws = Workspace.from_config()
 model = Model.register(
     workspace=ws,
     model_name="my_tensorflow_model",  # Model name in Azure
-    model_path="./model/my_model.keras"  # Local path to the SavedModel directory
+    model_path="my_model.keras"  # Local path to the SavedModel directory
 )
 
 # List all registered models

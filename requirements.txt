@@ -1,0 +1,4 @@
+tensorflow
+numpy
+azureml-defaults
+azureml-inference-server-http
